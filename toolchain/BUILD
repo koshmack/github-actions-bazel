@@ -1,6 +1,8 @@
 package(default_visibility = ["//visibility:public"])
 
-filegroup(name = "k8_toolchain_config")
+load(":cc_toolchain_config.bzl", "cc_toolchain_config")
+
+cc_toolchain_config(name = "k8_toolchain_config")
 
 cc_toolchain_suite(
     name = "clang_suite",
