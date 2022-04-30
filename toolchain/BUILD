@@ -1,0 +1,23 @@
+package(default_visibility = ["//visibility:public"])
+
+filegroup(name = "k8_toolchain_config")
+
+cc_toolchain_suite(
+    name = "clang_suite",
+    toolchains = {
+        "k8": ":k8_toolchain",
+    },
+)
+
+cc_toolchain(
+    name = "k8_toolchain",
+    toolchain_identifier = "k8-toolchain",
+    toolchain_config = ":k8_toolchain_config",
+    all_files = ":empty",
+    compiler_files = ":empty",
+    dwp_files = ":empty",
+    linker_files = ":empty",
+    objcopy_files = ":empty",
+    strip_files = ":empty",
+    supports_param_files = 0,
+)
