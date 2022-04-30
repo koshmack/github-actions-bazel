@@ -11,6 +11,8 @@ cc_toolchain_suite(
     },
 )
 
+filegroup(name = "empty")
+
 cc_toolchain(
     name = "k8_toolchain",
     toolchain_identifier = "k8-toolchain",
@@ -23,3 +25,5 @@ cc_toolchain(
     strip_files = ":empty",
     supports_param_files = 0,
 )
+
+filegroup(name = "k8_toolchain_config")
