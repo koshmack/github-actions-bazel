@@ -25,5 +25,3 @@ cc_toolchain(
     strip_files = ":empty",
     supports_param_files = 0,
 )
-
-filegroup(name = "k8_toolchain_config")
