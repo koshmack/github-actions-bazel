@@ -49,3 +49,8 @@ def _impl(ctx):
         abi_libc_version = "unknown",
         tool_paths = tool_paths, # NEW
     )
+cc_toolchain_config = rule(
+    implementation = _impl,
+    attrs = {},
+    provides = [CcToolchainConfigInfo],
+)
