@@ -74,6 +74,7 @@ def _impl(ctx):
         cxx_builtin_include_directories = [
             "/usr/lib/llvm-9/lib/clang/9.0.1/include",
             "/usr/include",
+            "/usr/lib/llvm-11/lib/clang/11.0.0/include",
         ],
         toolchain_identifier = "local",
         host_system_name = "local",
