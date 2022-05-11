@@ -17,7 +17,7 @@ def _impl(ctx):
     tool_paths = [
         tool_path(
             name = "gcc",
-            path = "/usr/bin/clang",
+            path = "/usr/bin/clang++-12",
         ),
         tool_path(
             name = "ld",
@@ -25,11 +25,11 @@ def _impl(ctx):
         ),
         tool_path(
             name = "ar",
-            path = "/bin/false",
+            path = "/usr/bin/ar",
         ),
         tool_path(
             name = "cpp",
-            path = "/bin/false",
+            path = "/usr/bin/clang++-12",
         ),
         tool_path(
             name = "gcov",
@@ -75,6 +75,7 @@ def _impl(ctx):
             "/usr/lib/llvm-9/lib/clang/9.0.1/include",
             "/usr/include",
             "/usr/lib/llvm-11/lib/clang/11.0.0/include",
+            "/usr/lib/llvm-12/lib/clang/12.0.0/include",
         ],
         toolchain_identifier = "local",
         host_system_name = "local",
