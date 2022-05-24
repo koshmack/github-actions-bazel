@@ -15,9 +15,38 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # Set up JDK 11 in runtime environment for running the Detect tool (invoked by the
+      # detect plugin)
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      # Set up Python 3.8 & install, cache blackduck-c-cpp
+      - name: Setup python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+          cache: 'pip'
+      - run: pip install blackduck-c-cpp
+
       - name: Build by bazel
         working-directory: ./cpp-test/src
-        run: bazel build --config=clang_config --sandbox_debug //main:hello-world
+        env:
+          Cov_Configure: '{'clang++-12': 'clangcxx', 'clang-12': 'clangcc'}'
+          Build_Command: 'bazel clean; bazel build --config=clang_config --sandbox_debug //main:hello-world'
+          BD_Url: 'https://testing.blackduck.synopsys.com/'
+
+        run: |
+          blackduck-c-cpp \
+            --cov_configure_args=$Cov_Configure \
+            --build_cmd=$Build_Command \
+            --project_name='MK-woven-bd-c-cpp-test' \ 
+            --project_version='1.0' \
+            --build_dir=$GITHUB_WORKSPACE \
+            --bd_url=$BD_Url \
+            --api_token=${{ secrets.BLACKDUCK_TESTSERVER_TOKEN }}
 
       # uses: lhotari/action-upterm@v1
       # Runs a set of commands using the runners shell
