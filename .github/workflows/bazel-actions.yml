@@ -43,9 +43,9 @@ jobs:
             --build_cmd="$Build_Command" \
             --project_name='MK-woven-bd-c-cpp-test' \ 
             --project_version='1.0' \
-            --build_dir=$GITHUB_WORKSPACE \
-            --bd_url=$BD_Url \
-            --api_token=${{ secrets.BLACKDUCK_TESTSERVER_TOKEN }}
+            --build_dir="$GITHUB_WORKSPACE" \
+            --bd_url="$BD_Url" \
+            --api_token="${{ secrets.BLACKDUCK_TESTSERVER_TOKEN }}"
 
       # uses: lhotari/action-upterm@v1
       # Runs a set of commands using the runners shell
