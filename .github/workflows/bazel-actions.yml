@@ -29,7 +29,7 @@ jobs:
         with:
           python-version: '3.8'
           cache: 'pip'
-      - run: pip install blackduck-c-cpp
+      - run: pip install blackduck-c-cpp -r requirements.txt
 
       - name: Build by bazel
         working-directory: ./cpp-test/src
@@ -37,7 +37,6 @@ jobs:
           Cov_Configure: '{"clang++-12": "clangcxx", "clang-12": "clangcc"}'
           Build_Command: 'bazel clean; bazel build --config=clang_config --sandbox_debug //main:hello-world'
           BD_Url: 'https://testing.blackduck.synopsys.com/'
-
         run: |
           blackduck-c-cpp \
             --cov_configure_args=$Cov_Configure \
