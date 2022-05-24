@@ -39,7 +39,7 @@ jobs:
           BD_Url: 'https://testing.blackduck.synopsys.com/'
         run: |
           blackduck-c-cpp \
-            --cov_configure_args=$Cov_Configure \
+            --cov_configure_args="$Cov_Configure" \
             --build_cmd="$Build_Command" \
             --project_name='MK-woven-bd-c-cpp-test' \ 
             --project_version='1.0' \
