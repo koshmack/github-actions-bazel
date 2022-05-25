@@ -44,7 +44,7 @@ jobs:
           --cov_configure_args="$COV_CONFIG"
           --build_cmd="$BUILD_CMD"
           --project_name="MK-woven-bd-c-cpp-test"
-          --project_version="$BUILD_NUMBER"
+          --project_version="$GITHUB_RUN_NUMBER"
           --build_dir="$GITHUB_WORKSPACE/cpp-test/src"
           --bd_url="$BD_URL"
           --api_token="$API_TOKEN"
