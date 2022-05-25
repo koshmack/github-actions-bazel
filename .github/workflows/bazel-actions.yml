@@ -33,7 +33,7 @@ jobs:
 
       # Execute test by blackduck-c-cpp
       - name: Test by blackduck-c-cpp
-        working-directory: $GITHUB_WORKSPACE/cpp-test/src
+        working-directory: ./cpp-test/src
         env:
           Cov_Configure: '{"clang++-12": "clangcxx", "clang-12": "clangcc"}'
           Build_Command: 'bazel clean; bazel build --config=clang_config --sandbox_debug //main:hello-world'
