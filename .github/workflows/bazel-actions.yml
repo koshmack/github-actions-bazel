@@ -47,7 +47,7 @@ jobs:
           --project_version="1.0"
           --build_dir="$GITHUB_WORKSPACE/cpp-test/src"
           --bd_url="$BD_Url"
-          --api_token="ZDc5MjkwYzQtMzRhYy00OWQ4LWE2NmUtODc2NjFkM2FkY2Y1OmEwNGIwMmNjLWViOTktNGEwMy04YmQ2LTU5M2M3YjBlN2VjNw=="
+          --api_token="$API_TOKEN"
 
       #  uses: lhotari/action-upterm@v1
       # Runs a set of commands using the runners shell
