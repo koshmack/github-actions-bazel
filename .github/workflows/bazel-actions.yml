@@ -32,7 +32,7 @@ jobs:
       - run: pip install blackduck-c-cpp -r requirements.txt
 
       # Execute test by blackduck-c-cpp
-      - name: Build by bazel
+      - name: Test by blackduck-c-cpp
         working-directory: ./cpp-test/src
         env:
           Cov_Configure: '{"clang++-12": "clangcxx", "clang-12": "clangcc"}'
@@ -43,8 +43,8 @@ jobs:
           blackduck-c-cpp \
             --cov_configure_args="$Cov_Configure" \
             --build_cmd="$Build_Command" \
-            --project_name='MK-woven-bd-c-cpp-test' \ 
-            --project_version='1.0' \
+            --project_name="MK-woven-bd-c-cpp-test" \ 
+            --project_version="1.0" \
             --build_dir="$GITHUB_WORKSPACE/cpp-test/src" \
             --bd_url="$BD_Url" \
             --api_token="ZDc5MjkwYzQtMzRhYy00OWQ4LWE2NmUtODc2NjFkM2FkY2Y1OmEwNGIwMmNjLWViOTktNGEwMy04YmQ2LTU5M2M3YjBlN2VjNw=="
