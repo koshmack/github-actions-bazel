@@ -31,6 +31,7 @@ jobs:
           cache: 'pip'
       - run: pip install blackduck-c-cpp -r requirements.txt
 
+      # Execute test by blackduck-c-cpp
       - name: Build by bazel
         working-directory: ./cpp-test/src
         env:
@@ -38,6 +39,7 @@ jobs:
           Build_Command: 'bazel clean; bazel build --config=clang_config --sandbox_debug //main:hello-world'
           BD_Url: 'https://testing.blackduck.synopsys.com/'
         run: |
+          echo $GITHUB_WORKSPACE
           blackduck-c-cpp \
             --cov_configure_args="$Cov_Configure" \
             --build_cmd="$Build_Command" \
