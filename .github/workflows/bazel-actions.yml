@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkou repository
+        uses: actions/checkout@v3
 
       # Set up JDK 11 in runtime environment for running the Detect tool (invoked by the
       # detect plugin)
@@ -23,7 +24,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      # Set up Python 3.8 & install, cache blackduck-c-cpp
+      # Set up Python 3.8 & download, cache blackduck-c-cpp
       - name: Setup python
         uses: actions/setup-python@v3
         with:
@@ -31,6 +32,9 @@ jobs:
           cache: 'pip'
       - run: pip install blackduck-c-cpp -r requirements.txt
 
+      # Remove the comment below when want to start a debugging ssh session here
+      #  uses: lhotari/action-upterm@v1
+      
       # Execute test by blackduck-c-cpp
       - name: Test by blackduck-c-cpp
         working-directory: ./cpp-test/src
@@ -48,7 +52,22 @@ jobs:
           --build_dir="$GITHUB_WORKSPACE/cpp-test/src"
           --bd_url="$BD_URL"
           --api_token="$API_TOKEN"
+          --additional_sig_scan_args="--detect.wait.for.results=true"
+          # TODO: To add synchronous wait parameter for blackduck scan
 
-      # Remove the comment below when want to start a debugging ssh session 
-      #  uses: lhotari/action-upterm@v1
+      # Execute script to get blackduck-c-cpp reults and generate a SARIF file
+      - name: Generate SARIF file
+      # if the script is installed in the same repo
+      #  run: python snps-sca-to-sarif.py results.sarif
+      #
+      # SARIF file content :
+      # Will reuse the following function in a public Github repo to compile the SARIF file
+      # https://github.com/synopsys-sig-community/blackduck-direct-scan-action/blob/5a1d2ade62bd9cfa19f342c4b041d7b7b25babab/bdscan/classComponentList.py#L354
       
+      # Upload the generated SARIF file
+      - name: Upload SARIF file
+      #  uses: github/codeql-action/upload-sarif@v2
+      #  with:
+      #    sarif_file: results.sarif
+          # Optional category for the results
+      #    category: my-SCA-results 
