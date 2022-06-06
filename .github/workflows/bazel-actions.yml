@@ -70,13 +70,11 @@ jobs:
           -t "$API_TOKEN"
           -p "$PROJECT_NAME"
           -r "$GITHUB_RUN_NUMBER"
-          -s results.sarif
+          -s "results.sarif"
 
       # Upload the generated SARIF file
       - name: Upload SARIF file
-        working-directory: ./python
         uses: actions/upload-artifact@v3
         with:
-          sarif_file: results.sarif
-          # Optional category for the results
-          category: my-SCA-results
+          name: my-sca-sarif 
+          path: ./python/results.sarif
