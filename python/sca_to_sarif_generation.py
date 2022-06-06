@@ -210,6 +210,7 @@ class ScaToSarif():
                             'name': 'Synopsys Black Duck',
                             'organization': 'Synopsys',
                             'version': bd_version,
+                            'informationUri': 'https://www.blackducksoftware.com/',
                             'rules': sarif_tool_rule,
                         }
                     },
