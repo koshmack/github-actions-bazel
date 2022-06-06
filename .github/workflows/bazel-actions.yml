@@ -11,6 +11,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      BD_URL: 'https://testing.blackduck.synopsys.com/'
+      PROJECT_NAME: 'MK-woven-bd-c-cpp-test'
+      API_TOKEN: ${{ secrets.BLACKDUCK_TESTSERVER_TOKEN }} 
 
     steps:
       - name: Checkout repository
@@ -41,33 +45,38 @@ jobs:
         env:
           COV_CONFIG: '{"clang++-12": "clangcxx", "clang-12": "clangcc"}'
           BUILD_CMD: 'bazel clean; bazel build --config=clang_config --sandbox_debug //main:hello-world'
-          BD_URL: 'https://testing.blackduck.synopsys.com/'
-          API_TOKEN: ${{ secrets.BLACKDUCK_TESTSERVER_TOKEN }} 
         run: >
           blackduck-c-cpp
           --cov_configure_args="$COV_CONFIG"
           --build_cmd="$BUILD_CMD"
-          --project_name="MK-woven-bd-c-cpp-test"
+          --project_name="$PROJECT_NAME"
           --project_version="$GITHUB_RUN_NUMBER"
           --build_dir="$GITHUB_WORKSPACE/cpp-test/src"
           --bd_url="$BD_URL"
           --api_token="$API_TOKEN"
-          --additional_sig_scan_args="--detect.wait.for.results=true"
-          # TODO: To add synchronous wait parameter for blackduck scan
+
+      # TODO: To replace sleep with checkin scan status and sleep
+      - name: Sleep for 60s
+        uses: juliangruber/sleep-action@v1
+        with:
+          time: 60s
 
       # Execute script to get blackduck-c-cpp reults and generate a SARIF file
-      #- name: Generate SARIF file
-      # if the script is installed in the same repo
-      #  run: python snps-sca-to-sarif.py results.sarif
-      #
-      # SARIF file content :
-      # Will reuse the following function in a public Github repo to compile the SARIF file
-      # https://github.com/synopsys-sig-community/blackduck-direct-scan-action/blob/5a1d2ade62bd9cfa19f342c4b041d7b7b25babab/bdscan/classComponentList.py#L354
-      
+      - name: Generate SARIF file
+        working-directory: ./python
+        run: >
+          python sca_to_sarif_generation.py
+          -b "$BD_URL"
+          -t "$API_TOKEN"
+          -p "$PROJECT_NAME"
+          -r "$GITHUB_RUN_NUMBER"
+          -s results.sarif
+
       # Upload the generated SARIF file
-      #- name: Upload SARIF file
-      #  uses: github/codeql-action/upload-sarif@v2
-      #  with:
-      #    sarif_file: results.sarif
+      - name: Upload SARIF file
+        working-directory: ./python
+        uses: actions/upload-artifact@v3
+        with:
+          sarif_file: results.sarif
           # Optional category for the results
-      #    category: my-SCA-results 
+          category: my-SCA-results
