@@ -163,7 +163,8 @@ class ScaToSarif():
                                 'physicalLocation': {
                                     'artifactLocation': {
                                         # BOM component URL
-                                        'uri': comp['_meta']['href'],
+                                        # For debugging
+                                        'uri': comp['_meta']['href'].replace("https", "file"),
                                     },
                                     'region': {
                                         'startLine': 1,
