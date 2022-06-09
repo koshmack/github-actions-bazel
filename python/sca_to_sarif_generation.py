@@ -202,7 +202,7 @@ class ScaToSarif():
                     },
                     'properties': {
                         'tags': ["security"],
-                        'security-severity': score
+                        'security-severity': str(score)
                     }
                 }
             )
