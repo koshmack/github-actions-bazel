@@ -164,6 +164,12 @@ class ScaToSarif():
                                     'artifactLocation': {
                                         # BOM component URL
                                         'uri': comp['_meta']['href'],
+                                    },
+                                    'region': {
+                                        'startLine': 1,
+                                        'endLine': 1,
+                                        'startColumn': 1,
+                                        'endColumn': 1,
                                     }
                                 }
                             }
@@ -188,7 +194,9 @@ class ScaToSarif():
                     'fullDescription': {
                         'text': longtext,
                     },
-                    'helpUri': helpuri,
+                    'help': {
+                        'text': helpuri,
+                    },
                     'defaultConfiguration': {
                         'level': level,
                     },
