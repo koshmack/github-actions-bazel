@@ -146,7 +146,7 @@ class ScaToSarif():
                 continue
             for vuln in self.get_vulnerabilities(comp):
                 ruleid = vuln['name']
-                shorttext = vuln['description'][0:79]
+                shorttext = vuln['description']
                 longtext = vuln['description']
                 helpuri = vuln['_meta']['href']
                 #severity = vuln['severity'] 
@@ -163,14 +163,10 @@ class ScaToSarif():
                                 'physicalLocation': {
                                     'artifactLocation': {
                                         # BOM component URL
-                                        # For debugging
-                                        'uri': comp['_meta']['href'].replace("https", "file"),
+                                        'uri': comp['_meta']['href'],
                                     },
                                     'region': {
                                         'startLine': 1,
-                                        'endLine': 1,
-                                        'startColumn': 1,
-                                        'endColumn': 1,
                                     }
                                 }
                             }
