@@ -160,10 +160,13 @@ class ScaToSarif():
                         },
                         'locations': [
                             {
+                                'message': {
+                                    'text': comp['_meta']['href'],
+                                },
                                 'physicalLocation': {
                                     'artifactLocation': {
                                         # BOM component URL
-                                        'uri': comp['_meta']['href'],
+                                        'uri': comp['_meta']['href'].replace("http", "file"),
                                     },
                                     'region': {
                                         'startLine': 1,
