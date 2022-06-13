@@ -71,7 +71,7 @@ jobs:
           -p "$PROJECT_NAME"
           -r "$GITHUB_RUN_NUMBER"
           -s "results.sarif"
-          -m "$GITHUB_WORKSPACE/README.md"
+          -m "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/README.md"
 
       # Upload the generated SARIF file
       - name: Upload SARIF file

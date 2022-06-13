@@ -134,12 +134,6 @@ class ScaToSarif():
             version = comp['componentVersionName'] if 'componentVersionName' in comp else "N/A"
             result_text = \
                 f"Vulnerability is found in BoM component {comp['componentName']} version {version}."
-            # if level == "error":
-            #     result_text += SHORTTEXT_ERROR
-            # elif level == "warning":
-            #     result_text += SHORTTEXT_WARNING
-            # else:
-            #     result_text += SHORTTEXT_NOTE
 
             # It is supposed to hit vulns always here, but empty vulns can happen. 
             if not self.get_vulnerabilities(comp):
@@ -149,7 +143,6 @@ class ScaToSarif():
                 shorttext = vuln['description']
                 longtext = vuln['description']
                 helpuri = vuln['_meta']['href']
-                #severity = vuln['severity'] 
                 score = vuln['overallScore']
                 
                 sarif_result.append(
@@ -179,7 +172,7 @@ class ScaToSarif():
                     }
                 )
                 
-                # No duplicated rule added to the sarif rule property
+                # No duplicated rule to be added to the sarif rule property
                 if ruleid in sarif_rules:
                     continue
                 sarif_rules.append(ruleid)
