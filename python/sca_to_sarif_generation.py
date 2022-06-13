@@ -114,7 +114,7 @@ class ScaToSarif():
     """
     Generate and write SARIF file
     """
-    def write_sarif(self, bom_components, sarif_file, blackduck_url):
+    def write_sarif(self, bom_components, sarif_file, blackduck_url, readme_path):
         if os.path.exists(sarif_file):
             os.remove(sarif_file)
         if os.path.exists(sarif_file):
@@ -161,12 +161,11 @@ class ScaToSarif():
                         'locations': [
                             {
                                 'message': {
-                                    'text': comp['_meta']['href'],
+                                    'text': f"BOM component information is found in {comp['_meta']['href']}",
                                 },
                                 'physicalLocation': {
                                     'artifactLocation': {
-                                        # BOM component URL
-                                        'uri': comp['_meta']['href'].replace("https", "file"),
+                                        'uri': readme_path.replace("https", "file"),
                                     },
                                     'region': {
                                         'startLine': 1,
@@ -247,9 +246,10 @@ if __name__ == '__main__':
     parser.add_argument("-p", "--project_name", action="store", default="", \
                         help="Project name to be processed")
     parser.add_argument("-r", "--release_name", action="store", default="", \
-                        help="release(version) name to be processed")
+                        help="Release(version) name to be processed")
+    parser.add_argument("-m", "--readme_path", action="store", default="", \
+                        help="Path to README.md file")
     args = parser.parse_args()
-    
     try:
         bd_client = Client(token=args.api_token, \
                            base_url=args.blackduck_url, \
@@ -269,7 +269,7 @@ if __name__ == '__main__':
         bom_components = scan_to_sarif.get_bom_components(version)
         
         # generate and write SARIF
-        scan_to_sarif.write_sarif(bom_components, args.sarif_file, args.blackduck_url)
+        scan_to_sarif.write_sarif(bom_components, args.sarif_file, args.blackduck_url, args.readme_path)
 
     except: 
         traceback.print_exc()

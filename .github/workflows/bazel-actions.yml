@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      BD_URL: 'https://testing.blackduck.synopsys.com/'
+      BD_URL: ${{ secrets.BLACKDUCK_URL }}
       PROJECT_NAME: 'MK-woven-bd-c-cpp-test'
       API_TOKEN: ${{ secrets.BLACKDUCK_TESTSERVER_TOKEN }} 
 
@@ -71,6 +71,7 @@ jobs:
           -p "$PROJECT_NAME"
           -r "$GITHUB_RUN_NUMBER"
           -s "results.sarif"
+          -m "$GITHUB_WORKSPACE/README.md"
 
       # Upload the generated SARIF file
       - name: Upload SARIF file
