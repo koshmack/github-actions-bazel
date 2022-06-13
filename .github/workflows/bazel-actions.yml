@@ -71,7 +71,7 @@ jobs:
           -p "$PROJECT_NAME"
           -r "$GITHUB_RUN_NUMBER"
           -s "results.sarif"
-          -m "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/blob/$GITHUB_BASE_REF/cpp-test/src/main/BUILD"
+          -m "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/blob/$GITHUB_REF_NAME/cpp-test/src/main/BUILD"
 
       # Upload the generated SARIF file
       - name: Upload SARIF file
