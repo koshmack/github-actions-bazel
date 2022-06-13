@@ -114,7 +114,7 @@ class ScaToSarif():
     """
     Generate and write SARIF file
     """
-    def write_sarif(self, bom_components, sarif_file, blackduck_url, readme_path):
+    def write_sarif(self, bom_components, sarif_file, blackduck_url, build_path):
         if os.path.exists(sarif_file):
             os.remove(sarif_file)
         if os.path.exists(sarif_file):
@@ -158,7 +158,7 @@ class ScaToSarif():
                                 },
                                 'physicalLocation': {
                                     'artifactLocation': {
-                                        'uri': readme_path.replace("https", "file"),
+                                        'uri': build_path.replace("https", "file"),
                                     },
                                     'region': {
                                         'startLine': 1,
@@ -240,8 +240,8 @@ if __name__ == '__main__':
                         help="Project name to be processed")
     parser.add_argument("-r", "--release_name", action="store", default="", \
                         help="Release(version) name to be processed")
-    parser.add_argument("-m", "--readme_path", action="store", default="", \
-                        help="Path to README.md file")
+    parser.add_argument("-m", "--build_file", action="store", default="", \
+                        help="Path to main BUILD file")
     args = parser.parse_args()
     try:
         bd_client = Client(token=args.api_token, \
@@ -262,7 +262,7 @@ if __name__ == '__main__':
         bom_components = scan_to_sarif.get_bom_components(version)
         
         # generate and write SARIF
-        scan_to_sarif.write_sarif(bom_components, args.sarif_file, args.blackduck_url, args.readme_path)
+        scan_to_sarif.write_sarif(bom_components, args.sarif_file, args.blackduck_url, args.build_path)
 
     except: 
         traceback.print_exc()
