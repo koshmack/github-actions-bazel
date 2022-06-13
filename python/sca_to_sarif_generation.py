@@ -114,7 +114,7 @@ class ScaToSarif():
     """
     Generate and write SARIF file
     """
-    def write_sarif(self, bom_components, sarif_file, blackduck_url, build_path):
+    def write_sarif(self, bom_components, sarif_file, blackduck_url, build_file):
         if os.path.exists(sarif_file):
             os.remove(sarif_file)
         if os.path.exists(sarif_file):
@@ -158,7 +158,7 @@ class ScaToSarif():
                                 },
                                 'physicalLocation': {
                                     'artifactLocation': {
-                                        'uri': build_path.replace("https", "file"),
+                                        'uri': build_file.replace("https", "file"),
                                     },
                                     'region': {
                                         'startLine': 1,
@@ -262,7 +262,7 @@ if __name__ == '__main__':
         bom_components = scan_to_sarif.get_bom_components(version)
         
         # generate and write SARIF
-        scan_to_sarif.write_sarif(bom_components, args.sarif_file, args.blackduck_url, args.build_path)
+        scan_to_sarif.write_sarif(bom_components, args.sarif_file, args.blackduck_url, args.build_file)
 
     except: 
         traceback.print_exc()
