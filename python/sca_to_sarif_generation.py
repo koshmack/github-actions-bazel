@@ -1,7 +1,5 @@
 '''
-Created on June 3, 2022
-
-@author: mkoishi
+Copyright (c) 2020 Synopsys, Inc. All rights reserved worldwide.
 '''
 #!/usr/bin/env python
 
