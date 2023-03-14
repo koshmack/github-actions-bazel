@@ -38,7 +38,8 @@ jobs:
 
       # Remove the comment below when want to start a debugging ssh session here
       - name: debug session
-        uses: lhotari/action-upterm@v1
+      #  uses: lhotari/action-upterm@v1
+        uses: valeriangalliat/action-sshd-cloudflared@v1
       
       # Execute test by blackduck-c-cpp
       - name: Test by blackduck-c-cpp
