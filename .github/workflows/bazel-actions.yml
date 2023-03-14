@@ -37,16 +37,15 @@ jobs:
       - run: pip install blackduck-c-cpp -r requirements.txt
 
       # Remove the comment below when want to start a debugging ssh session here
-      - name: debug session
+      #- name: debug session
       #  uses: lhotari/action-upterm@v1
-        uses: valeriangalliat/action-sshd-cloudflared@v1
       
       # Execute test by blackduck-c-cpp
       - name: Test by blackduck-c-cpp
         working-directory: ./cpp-test/src
         env:
           COV_CONFIG: '{"clang++-12": "clangcxx", "clang-12": "clangcc"}'
-          BUILD_CMD: 'bazel clean; bazel build --config=clang_config --sandbox_debug //main:hello-world'
+          BUILD_CMD: 'bazel clean --expunge; bazel build --config=clang_config --sandbox_debug //main:hello-world'
         run: >
           blackduck-c-cpp
           --cov_configure_args="$COV_CONFIG"
