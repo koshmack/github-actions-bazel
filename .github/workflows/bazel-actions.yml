@@ -10,6 +10,7 @@ on:
 
 jobs:
   build:
+    # Use this version instead of ubuntu-latest to workaround bazel errors in inclusion
     runs-on: ubuntu-20.04
     env:
       BD_URL: ${{ secrets.BLACKDUCK_URL }}
