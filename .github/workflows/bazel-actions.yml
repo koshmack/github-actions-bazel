@@ -46,20 +46,15 @@ jobs:
         env:
           COV_CONFIG: '{"clang++-12": "clangcxx", "clang-12": "clangcc"}'
           BUILD_CMD: 'bazel clean --expunge; bazel build --config=clang_config --sandbox_debug //main:hello-world'
-        run: |
-          ls /usr/lib/llvm-12/lib/clang
-          echo "==="
-          bazel clean --expunge
-          bazel build --config=clang_config --sandbox_debug //main:hello-world
-        #>
-        #  blackduck-c-cpp
-        #  --cov_configure_args="$COV_CONFIG"
-        #  --build_cmd="$BUILD_CMD"
-        #  --project_name="$PROJECT_NAME"
-        #  --project_version="$GITHUB_RUN_NUMBER"
-        #  --build_dir="$GITHUB_WORKSPACE/cpp-test/src"
-        #  --bd_url="$BD_URL"
-        #  --api_token="$API_TOKEN"
+        run: >
+          blackduck-c-cpp
+          --cov_configure_args="$COV_CONFIG"
+          --build_cmd="$BUILD_CMD"
+          --project_name="$PROJECT_NAME"
+          --project_version="$GITHUB_RUN_NUMBER"
+          --build_dir="$GITHUB_WORKSPACE/cpp-test/src"
+          --bd_url="$BD_URL"
+          --api_token="$API_TOKEN"
         
       # TODO: To replace sleep with checkin scan status and sleep
       - name: Sleep for 60s
