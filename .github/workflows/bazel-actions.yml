@@ -49,9 +49,6 @@ jobs:
         run: |
           ls /usr/lib/llvm-12/lib/clang
           echo "==="
-          ls /usr/lib/llvm-12/lib/clang/12.0.1
-          echo "==="
-          ls /usr/lib/llvm-12/lib/clang/12.0.1/include
           bazel clean --expunge
           bazel build --config=clang_config --sandbox_debug //main:hello-world
         #>
