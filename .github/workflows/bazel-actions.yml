@@ -46,7 +46,11 @@ jobs:
         env:
           COV_CONFIG: '{"clang++-12": "clangcxx", "clang-12": "clangcc"}'
           BUILD_CMD: 'bazel clean --expunge; bazel build --config=clang_config --sandbox_debug //main:hello-world'
-        run: ls /usr/lib/llvm-12/lib/clang
+        run: |
+          ls /usr/lib
+          ls /usr/lib/llvm-12
+          ls /usr/lib/llvm-12/lib
+          ls /usr/lib/llvm-12/lib/clang
         #>
         #  blackduck-c-cpp
         #  --cov_configure_args="$COV_CONFIG"
